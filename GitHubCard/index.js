@@ -5,7 +5,6 @@
 axios.get('https://api.github.com/users/landoDev')
   .then (response => {
     cardEntry.append(gitUserCard(response.data));
-    // console.log(response.data);
 })
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -27,8 +26,14 @@ const cardEntry = document.querySelector('.cards');
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-const followersArray = [];
+// forEach(item => { get (item)}
+const followersArray = ["bteague92", "MrR3set", "stevenwang2060","fjhansen","ajablanco"];
+followersArray.forEach(user => {
+  axios.get('https://api.github.com/users/'+ user)
+  .then (response => {
+    cardEntry.appendChild(gitUserCard(response.data));
+})
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -75,10 +80,11 @@ function gitUserCard(dataObj) {
   gitInfo.appendChild(gitUserName);
   gitInfo.appendChild(gitLocation);
   gitInfo.appendChild(gitProfile);
+  gitProfile.appendChild(gitAddress);
   gitInfo.appendChild(gitFollowers);
   gitInfo.appendChild(gitFollowing);
   gitInfo.appendChild(gitBio);
-  gitProfile.appendChild(gitAddress);
+  
 
   // ===== Assigned Classes ===== //
   gitCard.classList.add('card');
@@ -91,7 +97,7 @@ function gitUserCard(dataObj) {
   gitName.textContent = dataObj.name;
   gitUserName.textContent = dataObj.login;
   gitLocation.textContent = 'Location: ' + dataObj.location;
-  gitProfile.textContent = 'Profile: ';
+  gitProfile.textContent = 'Profile: ' +dataObj;
   gitAddress.textContent = dataObj.html_url;
   gitFollowers.textContent = 'Followers: ' + dataObj.followers;
   gitFollowing.textContent = 'Following: ' + dataObj.following;
