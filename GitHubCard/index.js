@@ -86,11 +86,20 @@ function gitUserCard(dataObj) {
   gitUserName.classList.add('username');
 
   // ===== Element Content ===== //
+  gitImg.src = dataObj.avatar_url;
+  gitName.textContent = dataObj.name;
+  gitUserName.textContent = dataObj.login;
+  gitLocation.textContent = 'Location: ' + dataObj.location;
+  gitProfile.textContent = 'Profile: ';
+  gitAddress.textContent = dataObj.html_url;
+  gitFollowers.textContent = 'Followers: ' + dataObj.followers;
+  gitFollowing.textContent = 'Following: ' + dataObj.following;
+  gitBio.textContent = 'Bio: ' + dataObj.bio;
   
 
   return gitCard;
 }
-console.log(gitUserCard());
+// console.log(gitUserCard());
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
