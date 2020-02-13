@@ -2,9 +2,11 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+const cards = document.querySelector('.cards');
+
 axios.get('https://api.github.com/users/landoDev')
   .then (response => {
-    cardEntry.append(gitUserCard(response.data));
+    cards.prepend(gitUserCard(response.data));
 })
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -16,7 +18,7 @@ axios.get('https://api.github.com/users/landoDev')
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
-const cardEntry = document.querySelector('.cards');
+
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -31,7 +33,7 @@ const followersArray = ["bteague92", "MrR3set", "stevenwang2060","fjhansen","aja
 followersArray.forEach(user => {
   axios.get('https://api.github.com/users/'+ user)
   .then (response => {
-    cardEntry.appendChild(gitUserCard(response.data));
+    cards.appendChild(gitUserCard(response.data));
 })
 })
 
@@ -80,7 +82,6 @@ function gitUserCard(dataObj) {
   gitInfo.appendChild(gitUserName);
   gitInfo.appendChild(gitLocation);
   gitInfo.appendChild(gitProfile);
-  gitProfile.appendChild(gitAddress);
   gitInfo.appendChild(gitFollowers);
   gitInfo.appendChild(gitFollowing);
   gitInfo.appendChild(gitBio);
@@ -97,14 +98,15 @@ function gitUserCard(dataObj) {
   gitName.textContent = dataObj.name;
   gitUserName.textContent = dataObj.login;
   gitLocation.textContent = 'Location: ' + dataObj.location;
-  gitProfile.textContent = 'Profile: ' +dataObj;
+  gitProfile.textContent = 'Profile: ';
+  gitProfile.appendChild(gitAddress);
   gitAddress.textContent = dataObj.html_url;
   gitFollowers.textContent = 'Followers: ' + dataObj.followers;
   gitFollowing.textContent = 'Following: ' + dataObj.following;
   gitBio.textContent = 'Bio: ' + dataObj.bio;
-  
 
   return gitCard;
+  
 }
 // console.log(gitUserCard());
 // ===== Passing API call into function ===== //
